@@ -22,6 +22,7 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
 
     QJsonObject getExhibitInfo(const QModelIndex &index) const;
+    void updateModel(const QJsonDocument &new_exhibits);
 
 private:
 

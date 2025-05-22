@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include <QSharedPointer>
 
 #include <HttpWorker/httpworker.h>
 #include <MainMenu/exhibitstablemodel.h>
@@ -24,11 +25,15 @@ private slots:
 
     void on_addExhibitButton_clicked();
 
+    void onExhibitAdd();
+
 private:
     Ui::MainMenuWindow *ui;
 
-    HttpWorker* httpWorker;
-    ExhibitsTableModel* table_model;
+    QSharedPointer<HttpWorker> httpWorker;
+    ExhibitsTableModel* tableModel;
+
+
 };
 
 #endif // MAINMENUWINDOW_H

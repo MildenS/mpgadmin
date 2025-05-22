@@ -54,6 +54,13 @@ QJsonObject ExhibitsTableModel::getExhibitInfo(const QModelIndex &index) const
     return exhibits_internal[index.row()].toObject();
 }
 
+void ExhibitsTableModel::updateModel(const QJsonDocument &new_exhibits)
+{
+    beginResetModel();
+    exhibits_internal = new_exhibits.array();
+    endResetModel();
+}
+
 
 bool ExhibitsTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
