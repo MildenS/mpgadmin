@@ -38,7 +38,7 @@ FORMS += \
     MainMenu/mainmenuwindow.ui \
     startwindow.ui
 
-TRANSLATIONS += MPGAdmin_ru.ts
+TRANSLATIONS += MPGAdmin_ru_RU.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -46,4 +46,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    MPGAdmin_ru.ts
+    MPGAdmin_ru_RU.ts
+
+RESOURCES += \
+    translations.qrc

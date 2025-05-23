@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MPGAdmin_ru_RU.qm</file>
+        <file>MPGAdmin_ru.qm</file>
+    </qresource>
+</RCC>

@@ -102,7 +102,7 @@ bool HttpWorker::addExhibit(const QString& exhibitTitle, const QString& exhibitD
 
     QByteArray mainImageBytes = scaledImageData(mainImagePath);
     if (mainImageBytes.isEmpty()) {
-        QMessageBox::critical(nullptr, "Error", "Cannot load or scale main image.");
+        QMessageBox::critical(nullptr, tr("Error"), tr("Cannot load or scale main image."));
         multiPart->deleteLater();
         return false;
     }
@@ -118,7 +118,7 @@ bool HttpWorker::addExhibit(const QString& exhibitTitle, const QString& exhibitD
         QString path = trainImagesPaths[i];
         QByteArray imageBytes = scaledImageData(path);
         if (imageBytes.isEmpty()) {
-            QMessageBox::critical(nullptr, "Error", "Cannot load or scale training image: " + path);
+            QMessageBox::critical(nullptr, tr("Error"), tr("Cannot load or scale training image: ") + path);
             multiPart->deleteLater();
             return false;
         }
@@ -142,9 +142,9 @@ bool HttpWorker::addExhibit(const QString& exhibitTitle, const QString& exhibitD
 
     if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
-        QMessageBox::information(nullptr, "Success", "Exhibit added successfully!");
+        QMessageBox::information(nullptr, tr("Success"), tr("Exhibit added successfully!"));
     } else {
-        QMessageBox::critical(nullptr, "Error", "Failed to send exhibit: " + reply->errorString());
+        QMessageBox::critical(nullptr, tr("Error"), tr("Failed to send exhibit: ") + reply->errorString());
     }
     reply->deleteLater();
     return true;

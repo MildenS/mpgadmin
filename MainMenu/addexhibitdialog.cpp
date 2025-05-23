@@ -23,9 +23,9 @@ void AddExhibitDialog::on_mainImageSelectPushButton_clicked()
 {
     QString imagePath = QFileDialog::getOpenFileName(
         this,
-        "Choose image",
+        tr("Choose image"),
         "",
-        "Image (*.png *.jpg *.jpeg *.bmp);;"
+        tr("Image (*.png *.jpg *.jpeg *.bmp);;")
     );
 
     if (imagePath.isEmpty()) {
@@ -39,9 +39,9 @@ void AddExhibitDialog::on_selectTrainImagesPushButton_clicked()
 {
     QStringList imagePaths = QFileDialog::getOpenFileNames(
         this,
-        "Choose train images",
+        tr("Choose train images"),
         "",
-        "Image (*.png *.jpg *.jpeg *.bmp);;"
+        tr("Image (*.png *.jpg *.jpeg *.bmp);;")
     );
 
     if (imagePaths.isEmpty()) {
@@ -62,7 +62,7 @@ void AddExhibitDialog::on_addButton_clicked()
     if (exhibitTitle == "")
     {
         QMessageBox errorDialog;
-        errorDialog.setText("Write exhibit title!");
+        errorDialog.setText(tr("Write exhibit title!"));
         errorDialog.exec();
         return;
     }
@@ -71,7 +71,7 @@ void AddExhibitDialog::on_addButton_clicked()
     if (exhibitDescription == "")
     {
         QMessageBox errorDialog;
-        errorDialog.setText("Write exhibit description!");
+        errorDialog.setText(tr("Write exhibit description!"));
         errorDialog.exec();
         return;
     }
@@ -80,7 +80,7 @@ void AddExhibitDialog::on_addButton_clicked()
     if (mainImagePath == "")
     {
         QMessageBox errorDialog;
-        errorDialog.setText("Choose exhibit main image!");
+        errorDialog.setText(tr("Choose exhibit main image!"));
         errorDialog.exec();
         return;
     }
@@ -89,7 +89,7 @@ void AddExhibitDialog::on_addButton_clicked()
     if (trainImagesPaths.empty())
     {
         QMessageBox errorDialog;
-        errorDialog.setText("Choose exhibit train images!");
+        errorDialog.setText(tr("Choose exhibit train images!"));
         errorDialog.exec();
         return;
     }
