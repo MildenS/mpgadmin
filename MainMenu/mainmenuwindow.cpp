@@ -3,6 +3,8 @@
 #include "exhibitinfodialog.h"
 #include "addexhibitdialog.h"
 
+#include <QMessageBox>
+#include <QMessageBox>
 #include <QScroller>
 
 MainMenuWindow::MainMenuWindow(QWidget *parent) :
@@ -13,10 +15,16 @@ MainMenuWindow::MainMenuWindow(QWidget *parent) :
     httpWorker = QSharedPointer<HttpWorker>(new HttpWorker);
     QJsonDocument exhibits = httpWorker->getExhibits();
     tableModel = new ExhibitsTableModel(exhibits);
-    ui->exhibitsTable->setModel(tableModel);
+
+    proxyModel = new QSortFilterProxyModel(this);
+    proxyModel->setSourceModel(tableModel);
+    proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    proxyModel->setFilterKeyColumn(0);
+
+    ui->exhibitsTable->setModel(proxyModel);
     ui->exhibitsTable->resizeColumnsToContents();
     ui->exhibitsTable->resizeRowsToContents();
-    //ui->exhibitsTable->verticalHeader()->setDefaultSectionSize(256);
+    ui->exhibitsTable->verticalHeader()->setDefaultSectionSize(256);
     ui->exhibitsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->exhibitsTable->setColumnHidden(2, true);
     QScroller::grabGesture(ui->exhibitsTable->viewport(), QScroller::LeftMouseButtonGesture);
@@ -31,6 +39,11 @@ MainMenuWindow::~MainMenuWindow()
 void MainMenuWindow::on_showExhibitButton_clicked()
 {
     QModelIndex currentIndex = ui->exhibitsTable->currentIndex();
+    if (!currentIndex.isValid()) {
+        QMessageBox::warning(this, tr("No choosen exhibit"), tr("Please choose exhibit from table by click"));
+        return;
+    }
+
     const QJsonObject exhibitInfo = tableModel->getExhibitInfo(currentIndex);
 
     ExhibitInfoDialog* exhibitInfoDialog = new ExhibitInfoDialog(exhibitInfo);
@@ -49,4 +62,29 @@ void MainMenuWindow::onExhibitAdd()
 {
     QJsonDocument exhibits = httpWorker->getExhibits();
     tableModel->updateModel(exhibits);
+}
+
+void MainMenuWindow::on_deleteExhibitButton_clicked()
+{
+    QModelIndex currentIndex = ui->exhibitsTable->currentIndex();
+    if (!currentIndex.isValid()) {
+        QMessageBox::warning(this, tr("No choosen exhibit"), tr("Please choose exhibit from table by click"));
+        return;
+    }
+    QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this,
+                                      tr("Confirmation"),
+                                      tr("Are you sure you want to delete this exhibit?"),
+                                      QMessageBox::Yes | QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+
+        } else {
+
+        }
+}
+
+void MainMenuWindow::on_filterExhibitsLineEdit_textChanged(const QString &arg1)
+{
+    proxyModel->setFilterFixedString(arg1);
 }

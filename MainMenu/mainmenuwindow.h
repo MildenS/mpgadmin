@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QSharedPointer>
+#include <QSortFilterProxyModel>
 
 #include <HttpWorker/httpworker.h>
 #include <MainMenu/exhibitstablemodel.h>
@@ -27,11 +28,16 @@ private slots:
 
     void onExhibitAdd();
 
+    void on_deleteExhibitButton_clicked();
+
+    void on_filterExhibitsLineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::MainMenuWindow *ui;
 
     QSharedPointer<HttpWorker> httpWorker;
     ExhibitsTableModel* tableModel;
+    QSortFilterProxyModel *proxyModel;
 
 
 };
