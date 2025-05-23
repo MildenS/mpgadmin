@@ -72,16 +72,27 @@ void MainMenuWindow::on_deleteExhibitButton_clicked()
         return;
     }
     QMessageBox::StandardButton reply;
-        reply = QMessageBox::question(this,
-                                      tr("Confirmation"),
-                                      tr("Are you sure you want to delete this exhibit?"),
-                                      QMessageBox::Yes | QMessageBox::No);
+    reply = QMessageBox::question(this,
+                                  tr("Confirmation"),
+                                  tr("Are you sure you want to delete this exhibit?"),
+                                  QMessageBox::Yes | QMessageBox::No);
 
-        if (reply == QMessageBox::Yes) {
+    if (reply == QMessageBox::No) {
+        return;
+    }
 
-        } else {
-
-        }
+    QModelIndex indexInSameRow = currentIndex.sibling(currentIndex.row(), 2);
+    QString exhibitId = ui->exhibitsTable->model()->data(indexInSameRow).toString();
+    qDebug() << exhibitId;
+    bool isDeleted = httpWorker->deleteExhibit(exhibitId);
+    if (isDeleted)
+    {
+        QMessageBox::information(this, tr("Exhibit delete status"), tr("Exhibit deleted successful"));
+        onExhibitAdd(); // need to refacor
+    }
+    else {
+         QMessageBox::warning(this, tr("Exhibit delete status"), tr("Exhibit deleted end with error"));
+    }
 }
 
 void MainMenuWindow::on_filterExhibitsLineEdit_textChanged(const QString &arg1)
