@@ -8,6 +8,7 @@
 #include <QNetworkReply>
 #include <QUrl>
 #include <QDebug>
+#include <QStringList>
 
 #include <QJsonDocument>
 #include <QJsonArray>
@@ -20,7 +21,8 @@ public:
     explicit HttpWorker(QObject *parent = nullptr);
 
     QJsonDocument getExhibits();
-    bool addExhibit();
+    bool addExhibit(const QString& exhibitTitle, const QString& exhibitDescription,
+                    const QString& mainImagePath, const QStringList& trainImagesPaths);
     bool deleteExhibit(const QString& id);
 
 signals:
