@@ -62,6 +62,10 @@ void MainMenuWindow::onExhibitAdd()
 {
     QJsonDocument exhibits = httpWorker->getExhibits();
     tableModel->updateModel(exhibits);
+    ui->exhibitsTable->verticalHeader()->setDefaultSectionSize(256);
+    ui->exhibitsTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->exhibitsTable->setColumnHidden(2, true);
+    QScroller::grabGesture(ui->exhibitsTable->viewport(), QScroller::LeftMouseButtonGesture);
 }
 
 void MainMenuWindow::on_deleteExhibitButton_clicked()

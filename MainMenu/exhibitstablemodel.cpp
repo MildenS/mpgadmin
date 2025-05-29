@@ -58,6 +58,8 @@ void ExhibitsTableModel::updateModel(const QJsonDocument &new_exhibits)
 {
     beginResetModel();
     exhibits_internal = new_exhibits.array();
+    headers.clear();
+    headers << "exhibit_title" <<  "exhibit_image" << "exhibit_id";
     endResetModel();
 }
 

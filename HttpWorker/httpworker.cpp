@@ -62,6 +62,7 @@ QJsonDocument HttpWorker::getExhibits()
 
        } while (!isLastChunk && !nextChunkToken.isEmpty());
 
+       //qDebug() << QJsonDocument(databaseData);
        qDebug() << "Finish download database";
        return QJsonDocument(databaseData);
 }

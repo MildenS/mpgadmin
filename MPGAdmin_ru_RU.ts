@@ -145,7 +145,7 @@
     <message>
         <location filename="MainMenu/mainmenuwindow.ui" line="23"/>
         <source>Search by exhibit title</source>
-        <translation>Посик по названию</translation>
+        <translation>Поиск по названию</translation>
     </message>
     <message>
         <location filename="MainMenu/mainmenuwindow.ui" line="67"/>
